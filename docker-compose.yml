@@ -36,7 +36,7 @@ services:
       - type: bind
         source: ./front
         target: /usr/src/app
-    command: bash -c "cd app && npm start"
+    command: bash -c "npm start"
     ports:
       - "3000:3000"
 
