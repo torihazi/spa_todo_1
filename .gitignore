@@ -1,0 +1,17 @@
+# Rails
+/back/.bundle
+/back/.env*
+!/back/.env*.erb
+/back/log/*
+/back/tmp/*
+!/back/log/.keep
+!/back/tmp/.keep
+/back/tmp/pids/*
+!/back/tmp/pids/
+!/back/tmp/pids/.keep
+/back/storage/*
+!/back/storage/.keep
+/back/tmp/storage/*
+!/back/tmp/storage/
+!/back/tmp/storage/.keep
+/back/config/master.key

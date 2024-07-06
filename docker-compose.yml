@@ -1,0 +1,44 @@
+version: "3"
+services:
+  db:
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: myapp_development
+    ports:
+      - "5432:5432"
+
+  back:
+    build:
+      context: .
+      dockerfile: Dockerfile.back
+    volumes:
+      - type: bind
+        source: ./back
+        target: /myapp
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    ports:
+      - "3001:3000"
+    environment:
+      DATABASE_PASSWORD: postgres
+      TZ: Asia/Tokyo
+      RAILS_ENV: development
+    depends_on:
+      - db
+
+  front:
+    build:
+      context: .
+      dockerfile: Dockerfile.front
+    volumes:
+      - type: bind
+        source: ./front
+        target: /usr/src/app
+    command: bash -c "cd app && npm start"
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres_data:
